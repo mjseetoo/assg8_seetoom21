@@ -1,0 +1,71 @@
+package assg8_seetoom21;
+
+public class Event implements Comparable <Event>{
+	
+	boolean type;
+	int length;
+	int time;
+	
+	public Event(boolean type, int time) {
+		this.type = type;
+		this.length = 0;
+		this.time = time;
+	}
+	
+	public Event(boolean type, int length, int time) {
+		this.type = type;
+		this.length = length;
+		this.time = time;
+	}
+	public char getType() {
+		if (this.type){
+			return 'A';
+		}
+		else return 'D';
+	}
+	public int getLength() {
+		return this.length;
+	}
+	public int getTime() {
+		return this.time;
+	}
+	public void setType(char type) throws InvalidEventTypeException /*u like this ;)*/ {
+		switch (type) {
+		case 'A':
+		case 'a':
+			this.type = true;
+			break;
+		case 'D':
+		case 'd':
+			this.type = false;
+			break;
+		default:
+			throw new InvalidEventTypeException("bruh");
+		}
+	}
+	public void setLength(int length) {
+		this.length = length;
+	}
+	public void setTime(int time) {
+		this.time = time;
+	}
+	public String toString(){
+		char AoD;
+		if(this.type) {
+			AoD = 'A';
+		}
+		else {
+			AoD = 'D';
+		}
+		return AoD + " " + this.length + " " + this.time;
+	}
+
+	@Override
+	public int compareTo(Event o) {
+		if (this.getTime() >= o.getTime()) {
+			return 1;
+		}
+		else return -1;
+	}
+	
+}
