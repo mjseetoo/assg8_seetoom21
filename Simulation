@@ -1,0 +1,30 @@
+package assg8_seetoom21;
+
+import java.io.*;
+import java.util.*;
+
+public class Simulation {
+
+	public static void main(String[] args) {
+		
+		ArrayDeque<Event> inLine = new ArrayDeque<Event>();
+		EventList list = new EventList();
+		try {
+		Scanner readFile = new Scanner(new File("assg8_data.txt"));
+		while(readFile.hasNext()) {
+			Event add = new Event(true, Integer.parseInt(readFile.next()), Integer.parseInt(readFile.next()));
+			inLine.add(add);
+		}
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("File not found");
+			System.exit(1);
+		}
+		inLine.
+		Iterator it = new list.iterator();
+		while(it.hasNext()) {
+			
+		}
+	}
+
+}
