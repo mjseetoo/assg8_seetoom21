@@ -1,0 +1,20 @@
+package assg8_seetoom21;
+
+import java.util.*;
+
+public class EventList {
+	
+	ArrayList<Event> list = new ArrayList<Event>();
+
+	public void insert(Event e) {
+		list.add(e);
+		Collections.sort();
+	}
+	public void remove(Event e) {
+		list.remove(e);
+		Collections.sort();
+	}
+	public Event retrieve(int index) {
+		return list.get(index);
+	}
+}
