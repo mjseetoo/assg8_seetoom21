@@ -1,0 +1,12 @@
+package assg8_seetoom21;
+
+public class InvalidEventTypeException extends Exception {
+	
+	InvalidEventTypeException(){
+		super("Invalid Event Type");
+	}
+	InvalidEventTypeException(String e){
+		super(e);
+	}
+	
+}
