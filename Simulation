@@ -1,30 +1,83 @@
-package assg8_seetoom21;
+/*
+ * Micah Seetoo
+ * 
+ * This is a bank teller simulation for wait times at a bank.
+ * it reads from a file and stores the data in a list. based on the data
+ * it determines average wait time for customers and when the next person
+ * should come to the teller
+ */
+package assg8_seetooM21;
 
-import java.io.*;
 import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Simulation {
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
+		String fName = "assg8_input.txt";
+		Scanner file = new Scanner(new File(fName));
+		file.useDelimiter("\\s+");
 		
-		ArrayDeque<Event> inLine = new ArrayDeque<Event>();
-		EventList list = new EventList();
-		try {
-		Scanner readFile = new Scanner(new File("assg8_data.txt"));
-		while(readFile.hasNext()) {
-			Event add = new Event(true, Integer.parseInt(readFile.next()), Integer.parseInt(readFile.next()));
-			inLine.add(add);
-		}
-		}
-		catch(FileNotFoundException e) {
-			System.out.println("File not found");
-			System.exit(1);
-		}
-		inLine.
-		Iterator it = new list.iterator();
-		while(it.hasNext()) {
+		Queue<Event> queue = new PriorityQueue<Event>();
+		EventList events = new EventList();
+		
+		events.insert(new Event('A', Integer.parseInt(file.next()), Integer.parseInt(file.next())));
+		
+		System.out.println("Simulation begins");
+		while (!(events.isEmpty())) {
+			Event next = events.getevList().getFirst();
+			if(next.getType() == 'A') {
+				
+				events.time += next.getTime();
+				System.out.println("Processing an arrival event at time:\t" + next.getTime() + " " + next.toString());
+				arrival(next, file, events, queue);
+			}
+			
+			else {
+				System.out.println("Processing a departure event at time:\t" + next.getTime() + " " + next.toString());
+				departure(next, events, queue);
+			}
 			
 		}
+		
+		System.out.println("Simulation ends");
+		
+		return;
+		
 	}
+	/*
+	 * @param e, s, el, q
+	 */
+	public static void arrival(Event event, Scanner scanner, EventList list, Queue<Event> queue) throws FileNotFoundException {
+		boolean front = queue.isEmpty();
 
+		queue.add(event);
+		int length = queue.element().getLength();
+		int time = list.retrieve().getTime();
+		list.remove();
+		
+		if(front) {
+			System.out.println("Current time: " + list.time);
+			list.insert(new Event('D', length+time));
+		}
+		if(scanner.hasNextLine()) {
+			int nextTime = Integer.parseInt(scanner.next());
+			int nextLength = Integer.parseInt(scanner.next());
+			list.insert(new Event('A', nextTime, nextLength));
+		}
+		
+		
+	}
+	/*
+	 * @param event, list, queue
+	 */
+	public static void departure(Event event, EventList list, Queue<Event> queue) {
+		if(!queue.isEmpty()) {
+		queue.remove();
+		list.remove();
+		}
+		if(!(queue.isEmpty())) {
+			list.insert(new Event('D', queue.element().getTime() + queue.element().getLength()));
+		}
+	}
 }
