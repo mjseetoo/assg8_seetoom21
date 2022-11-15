@@ -1,65 +1,84 @@
-package assg8_seetoom21;
+package assg8_seetooM21;
 
 public class Event implements Comparable <Event>{
 	
-	boolean type;
+	char type;
 	int length;
 	int time;
-	
-	public Event(boolean type, int time) {
+	/*
+	 * @param type, time
+	 */
+	public Event(char type, int time) {
 		this.type = type;
 		this.length = 0;
 		this.time = time;
 	}
-	
-	public Event(boolean type, int length, int time) {
+	/*
+	 * @param type, length, time
+	 */
+	public Event(char type, int length, int time) {
 		this.type = type;
 		this.length = length;
 		this.time = time;
 	}
+	/*
+	 *@return this.type
+	 */
 	public char getType() {
-		if (this.type){
-			return 'A';
-		}
-		else return 'D';
-	}
+		return this.type;
+	}	/*
+	 *@return this.length
+	 */
 	public int getLength() {
 		return this.length;
 	}
+	/*
+	 *@return this.time
+	 */
 	public int getTime() {
 		return this.time;
 	}
-	public void setType(char type) throws InvalidEventTypeException /*u like this ;)*/ {
+	/*
+	 *@param type
+	 */
+	public void setType(char type) throws InvalidEventTypeException {
 		switch (type) {
 		case 'A':
 		case 'a':
-			this.type = true;
+			this.type = 'A';
 			break;
 		case 'D':
 		case 'd':
-			this.type = false;
+			this.type = 'A';
 			break;
 		default:
-			throw new InvalidEventTypeException("bruh");
+			throw new InvalidEventTypeException("Invalid event type");
 		}
 	}
+	/*
+	 * @param length
+	 */
 	public void setLength(int length) {
 		this.length = length;
 	}
+	/*
+	 * @param time
+	 */
 	public void setTime(int time) {
 		this.time = time;
 	}
+	/*
+	 * @return this.type + " " + this.length + " " + this.time;
+	 */
 	public String toString(){
-		char AoD;
-		if(this.type) {
-			AoD = 'A';
-		}
-		else {
-			AoD = 'D';
-		}
-		return AoD + " " + this.length + " " + this.time;
-	}
 
+		return this.type + " " + this.length + " " + this.time;
+	}
+	/*\
+	 *@param o
+	 *
+	 *@retrun 1, 0
+	 */
 	@Override
 	public int compareTo(Event o) {
 		if (this.getTime() >= o.getTime()) {
