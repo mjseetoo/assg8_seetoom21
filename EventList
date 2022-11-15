@@ -1,20 +1,70 @@
-package assg8_seetoom21;
+/*
+ * Micah seetoo
+ * 
+ * Event list and its methods
+ */
+package assg8_seetooM21;
 
 import java.util.*;
 
 public class EventList {
+	private ArrayDeque<Event> list = null;
+	int time = 0;
 	
-	ArrayList<Event> list = new ArrayList<Event>();
-
+	/*
+	 * default constructor
+	 */
+	public EventList() {
+		this.list = new ArrayDeque<Event>();
+	}
+	
+	/*
+	 * @returns this.list
+	 */
+	public ArrayDeque<Event> getevList(){
+		return this.list;
+	}
+	
+	/*
+	 * @param e
+	 * 
+	 */
 	public void insert(Event e) {
-		list.add(e);
-		Collections.sort();
+		ArrayDeque<Event> holder = new ArrayDeque<Event>();
+		while(!(this.list.isEmpty()) && e.getTime() < this.list.getLast().getTime()) {
+			holder.add(this.list.pollLast());
+		}
+		if(!(this.list.isEmpty()) && e.getTime() == this.list.getLast().getTime() && e.getType() == 0 && this.list.getLast().getType() == 1) {
+			holder.add(this.list.pollLast());
+		}
+		this.list.add(e);
+		
+		while(!(holder.isEmpty())) {
+			this.list.add(holder.pollLast());
+		}	
 	}
-	public void remove(Event e) {
-		list.remove(e);
-		Collections.sort();
+	/*'
+	 * @return this.list.pollFirst()
+	 */
+	public Event remove() {
+		return this.list.pollFirst();
 	}
-	public Event retrieve(int index) {
-		return list.get(index);
+	/*
+	 * @return this.list.getFirst()
+	 */
+	public Event retrieve() {
+		return this.list.getFirst();
 	}
+	/*
+	 * @return true, false
+	 */
+	public boolean isEmpty() {
+		if(this.list.isEmpty()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 }
